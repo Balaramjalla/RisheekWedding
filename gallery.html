@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Gallery | Risheek &amp; Bhargavi</title>
+  <meta name="description" content="Wedding portraits and moments from Risheek and Bhargavi's celebration.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&amp;family=Cinzel:wght@400;600&amp;family=Jost:wght@300;400;500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/vendor/glightbox/glightbox.min.css">
+  <style>
+    :root{
+      --obsidian:#1a0509;
+      --charcoal:#2b0d13;
+      --gold:#d4af37;
+      --gold-light:#f4c95d;
+      --kumkum:#b3202f;
+      --turmeric:#e8a93c;
+      --peacock:#0e6b64;
+      --ivory:#fdf3df;
+      --font-display:'Cormorant Garamond', serif;
+      --font-eyebrow:'Cinzel', serif;
+      --font-body:'Jost', sans-serif;
+      --ease-lux:cubic-bezier(.19,1,.22,1);
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      background:
+        radial-gradient(rgba(212,175,55,0.055) 1px, transparent 1.4px) 0 0/26px 26px,
+        linear-gradient(145deg, #23080d 0%, var(--obsidian) 45%, #081b19 140%);
+      color:var(--ivory);
+      font-family:var(--font-body);
+      font-weight:300;
+      overflow-x:hidden;
+    }
+    ::selection{ background:var(--gold); color:var(--obsidian); }
+    img{ display:block; max-width:100%; }
+    a{ color:inherit; }
+
+    .skip-link{
+      position:fixed; top:0.7rem; left:0.7rem; z-index:100;
+      padding:0.7rem 1rem; background:var(--gold); color:var(--obsidian);
+      text-decoration:none; transform:translateY(-150%);
+    }
+    .skip-link:focus{ transform:translateY(0); }
+
+    .site-header{
+      position:fixed; inset:0 0 auto; z-index:50;
+      display:flex; align-items:center; justify-content:space-between;
+      min-height:76px; padding:0.9rem clamp(1.1rem, 5vw, 5rem);
+      border-bottom:1px solid transparent;
+      transition:background .4s, border-color .4s, min-height .4s;
+    }
+    .site-header.scrolled{
+      min-height:64px; background:rgba(16,5,8,0.88); border-color:rgba(212,175,55,0.16);
+      backdrop-filter:blur(12px);
+    }
+    .brand{
+      font-family:var(--font-display); font-size:1.35rem; font-style:italic;
+      color:var(--gold-light); text-decoration:none;
+    }
+    .header-nav{ display:flex; align-items:center; gap:clamp(1rem, 3vw, 2.3rem); }
+    .header-nav a{
+      position:relative; padding:0.45rem 0; color:var(--ivory); text-decoration:none;
+      font-family:var(--font-eyebrow); font-size:0.7rem; letter-spacing:0.14em;
+      text-transform:uppercase;
+    }
+    .header-nav a::after{
+      content:''; position:absolute; inset:auto 0 0; height:1px; background:var(--gold);
+      transform:scaleX(0); transform-origin:left; transition:transform .35s var(--ease-lux);
+    }
+    .header-nav a:hover::after,
+    .header-nav a:focus-visible::after,
+    .header-nav a[aria-current="page"]::after{ transform:scaleX(1); }
+
+    .gallery-hero{
+      position:relative; min-height:min(76dvh, 760px); display:flex; align-items:flex-end;
+      overflow:hidden; isolation:isolate;
+    }
+    .gallery-hero > img{
+      position:absolute; inset:0; z-index:-2; width:100%; height:100%; object-fit:cover;
+      object-position:center 42%; animation:hero-arrive 1.8s var(--ease-lux) both;
+    }
+    .gallery-hero::after{
+      content:''; position:absolute; inset:0; z-index:-1;
+      background:
+        linear-gradient(180deg, rgba(10,4,6,0.28), rgba(10,4,6,0.16) 36%, rgba(26,5,9,0.94)),
+        linear-gradient(90deg, rgba(26,5,9,0.55), transparent 60%);
+    }
+    .hero-copy{
+      width:min(1180px, 100%); margin:0 auto; padding:8rem clamp(1.2rem, 6vw, 5rem) 4.2rem;
+      animation:copy-arrive 1.15s .25s var(--ease-lux) both;
+    }
+    .eyebrow{
+      display:inline-block; color:var(--gold-light); font-family:var(--font-eyebrow);
+      font-size:0.72rem; letter-spacing:0.3em; text-transform:uppercase;
+    }
+    h1,h2{ margin:0; font-family:var(--font-display); font-weight:600; letter-spacing:0; }
+    h1{
+      max-width:780px; margin-top:0.5rem; font-size:clamp(3.1rem, 8vw, 7.6rem);
+      font-style:italic; line-height:0.9; text-shadow:0 12px 38px rgba(0,0,0,0.65);
+    }
+    .hero-subtitle{
+      display:flex; align-items:center; gap:1rem; margin:1.4rem 0 0;
+      color:rgba(253,243,223,0.84); font-family:var(--font-display);
+      font-size:clamp(1.05rem, 2vw, 1.35rem); font-style:italic;
+    }
+    .hero-subtitle::before{ content:''; width:48px; height:1px; background:var(--gold); }
+
+    main{ position:relative; }
+    .gallery-section{ width:min(1180px, 100%); margin:0 auto; padding:5.5rem clamp(1.2rem, 5vw, 4rem) 7rem; }
+    .gallery-heading{ display:flex; align-items:end; justify-content:space-between; gap:2rem; margin-bottom:2.6rem; }
+    .gallery-heading h2{ margin-top:0.4rem; font-size:clamp(2.3rem, 5vw, 4rem); font-style:italic; }
+    .photo-count{
+      color:rgba(253,243,223,0.56); font-family:var(--font-eyebrow);
+      font-size:0.7rem; letter-spacing:0.16em; text-transform:uppercase;
+    }
+    .photo-grid{ column-count:3; column-gap:1rem; }
+    .photo-card{
+      position:relative; break-inside:avoid; margin:0 0 1rem; overflow:hidden;
+      border:1px solid rgba(212,175,55,0.28); border-radius:6px;
+      background:var(--charcoal); box-shadow:0 24px 55px -38px rgba(0,0,0,0.9);
+      opacity:0; transform:translateY(28px);
+      transition:opacity .85s var(--ease-lux), transform .85s var(--ease-lux), border-color .35s;
+    }
+    .photo-card.in-view{ opacity:1; transform:translateY(0); }
+    .photo-card:hover{ border-color:rgba(244,201,93,0.7); }
+    .photo-card a{ display:block; position:relative; text-decoration:none; }
+    .photo-card img{
+      width:100%; height:auto; transition:transform .75s var(--ease-lux), filter .5s;
+    }
+    .photo-card:hover img{ transform:scale(1.035); filter:saturate(1.08); }
+    .photo-card a::after{
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(180deg, transparent 65%, rgba(10,4,6,0.62));
+      opacity:0; transition:opacity .35s;
+    }
+    .photo-card:hover a::after,
+    .photo-card a:focus-visible::after{ opacity:1; }
+    .photo-index{
+      position:absolute; left:0.85rem; bottom:0.75rem; z-index:2;
+      color:var(--gold-light); font-family:var(--font-eyebrow); font-size:0.66rem;
+      letter-spacing:0.18em; opacity:0; transform:translateY(8px);
+      transition:opacity .35s, transform .35s;
+    }
+    .photo-expand{
+      position:absolute; right:0.75rem; bottom:0.65rem; z-index:2;
+      display:grid; place-items:center; width:34px; height:34px; border-radius:50%;
+      border:1px solid rgba(244,201,93,0.55); background:rgba(10,4,6,0.62);
+      color:var(--gold-light); opacity:0; transform:translateY(8px);
+      transition:opacity .35s, transform .35s;
+    }
+    .photo-card:hover .photo-index,
+    .photo-card:hover .photo-expand,
+    .photo-card a:focus-visible .photo-index,
+    .photo-card a:focus-visible .photo-expand{ opacity:1; transform:translateY(0); }
+    .video-card a::after{
+      opacity:1;
+      background:linear-gradient(180deg, rgba(10,4,6,0.12) 35%, rgba(10,4,6,0.88));
+    }
+    .video-card img{ aspect-ratio:16/9; object-fit:cover; }
+    .video-play{
+      position:absolute; left:50%; top:50%; z-index:3; transform:translate(-50%,-50%);
+      display:grid; place-items:center; width:64px; height:64px; border-radius:50%;
+      border:1px solid rgba(244,201,93,0.75); background:rgba(10,4,6,0.72);
+      color:var(--gold-light); font-size:1.25rem; line-height:1;
+      box-shadow:0 14px 34px rgba(0,0,0,0.38);
+      transition:transform .35s var(--ease-lux), background .35s, color .35s;
+    }
+    .video-card:hover .video-play,
+    .video-card a:focus-visible .video-play{
+      transform:translate(-50%,-50%) scale(1.08); background:var(--gold-light); color:var(--obsidian);
+    }
+    .video-caption{
+      position:absolute; left:1rem; right:1rem; bottom:0.9rem; z-index:3;
+      display:flex; align-items:end; justify-content:space-between; gap:1rem;
+    }
+    .video-caption strong{
+      display:block; color:var(--ivory); font-family:var(--font-display);
+      font-size:1.35rem; font-style:italic; font-weight:600;
+    }
+    .video-caption span{
+      color:var(--gold-light); font-family:var(--font-eyebrow);
+      font-size:0.62rem; letter-spacing:0.15em; text-transform:uppercase;
+    }
+
+    .page-footer{
+      display:flex; align-items:center; justify-content:space-between; gap:1rem;
+      padding:1.5rem clamp(1.2rem, 5vw, 5rem);
+      border-top:1px solid rgba(212,175,55,0.18); color:rgba(253,243,223,0.58);
+      font-size:0.75rem;
+    }
+    .back-link{ color:var(--gold-light); text-decoration:none; }
+    .back-link:hover,
+    .back-link:focus-visible{ text-decoration:underline; text-underline-offset:5px; }
+
+    .glightbox-clean .gslide-description{ background:rgba(11,10,13,0.9); }
+    .gnext,.gprev,.gclose{ color:var(--gold-light) !important; }
+
+    @keyframes hero-arrive{
+      from{ opacity:0; transform:scale(1.06); }
+      to{ opacity:1; transform:scale(1); }
+    }
+    @keyframes copy-arrive{
+      from{ opacity:0; transform:translateY(24px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
+
+    @media (max-width:860px){
+      .photo-grid{ column-count:2; }
+      .header-nav a:not([aria-current="page"]){ display:none; }
+    }
+    @media (max-width:560px){
+      .site-header{ min-height:64px; }
+      .gallery-hero{ min-height:68dvh; }
+      .hero-copy{ padding-bottom:3rem; }
+      h1{ line-height:0.98; }
+      .gallery-section{ padding-top:4rem; padding-bottom:5rem; }
+      .gallery-heading{ align-items:flex-start; flex-direction:column; gap:0.7rem; }
+      .photo-grid{ column-count:1; }
+      .photo-index,.photo-expand{ opacity:1; transform:none; }
+      .photo-card a::after{ opacity:1; }
+      .page-footer{ align-items:flex-start; flex-direction:column; }
+    }
+    @media (prefers-reduced-motion:reduce){
+      html{ scroll-behavior:auto; }
+      *,*::before,*::after{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+      .photo-card{ opacity:1; transform:none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#gallery">Skip to gallery</a>
+
+  <header class="site-header" id="site-header">
+    <a class="brand" href="index.html" aria-label="Risheek and Bhargavi home">R&nbsp;&amp;&nbsp;B</a>
+    <nav class="header-nav" aria-label="Primary navigation">
+      <a href="index.html">Home</a>
+      <a href="gallery.html" aria-current="page">Gallery</a>
+    </nav>
+  </header>
+
+  <section class="gallery-hero" aria-labelledby="gallery-title">
+    <img src="assets/DSC_6253.JPG" alt="Risheek and Bhargavi wedding portrait" width="1512" height="1006" fetchpriority="high">
+    <div class="hero-copy">
+      <span class="eyebrow">Wedding Moments</span>
+      <h1 id="gallery-title">Risheek &amp; Bhargavi</h1>
+      <p class="hero-subtitle">Our gallery</p>
+    </div>
+  </section>
+
+  <main id="gallery">
+    <section class="gallery-section" aria-labelledby="moments-title">
+      <div class="gallery-heading">
+        <div>
+          <span class="eyebrow">Captured with love</span>
+          <h2 id="moments-title">The Moments</h2>
+        </div>
+        <span class="photo-count">15 photographs &middot; 1 video</span>
+      </div>
+
+      <div class="photo-grid">
+        <figure class="photo-card video-card">
+          <!-- Replace this href with the final wedding YouTube URL. -->
+          <a class="glightbox" href="https://www.youtube.com/watch?v=M7lc1UVf-VE" data-gallery="full-wedding-gallery" data-type="video" data-width="960px" data-title="Our Wedding Film" aria-label="Play our wedding film">
+            <img src="assets/DSC_6276.JPG" alt="Risheek and Bhargavi wedding film preview" width="1512" height="1006">
+            <span class="video-play" aria-hidden="true">&#9654;</span>
+            <span class="video-caption"><strong>Our Engagement </strong><span>Video</span></span>
+          </a>
+        </figure>
+        <figure class="photo-card">
+          <a class="glightbox" href="assets/DSC_6253.JPG" data-gallery="full-wedding-gallery" data-title="Risheek &amp; Bhargavi">
+            <img src="assets/DSC_6253.JPG" alt="Risheek and Bhargavi wedding moment" width="1512" height="1006">
+            <span class="photo-index" aria-hidden="true">01</span><span class="photo-expand" aria-hidden="true">&#x2922;</span>
+          </a>
+        </figure>
+        <figure class="photo-card">
+          <a class="glightbox" href="assets/DSC_5775.JPG" data-gallery="full-wedding-gallery" data-title="Risheek &amp; Bhargavi">
+            <img src="assets/DSC_5775.JPG" alt="Risheek and Bhargavi wedding portrait" width="1006" height="1512">
+            <span class="photo-index" aria-hidden="true">02</span><span class="photo-expand" aria-hidden="true">&#x2922;</span>
+          </a>
+        </figure>
+        <figure class="photo-card">
+          <a class="glightbox" href="assets/DSC_6073.JPG" data-gallery="full-wedding-gallery" data-title="Risheek &amp; Bhargavi">
+            <img src="assets/DSC_6073.JPG" alt="Risheek and Bhargavi wedding moment" width="1512" height="1006" loading="lazy">
+            <span class="photo-index" aria-hidden="true">03</span><span class="photo-expand" aria-hidden="true">&#x2922;</span>
+          </a>
+        </figure>
+        <figure class="photo-card">
+          <a class="glightbox" href="assets/DSC_5984.JPG" data-gallery="full-wedding-gallery" data-title="Risheek &amp; Bhargavi">
+            <img src="assets/DSC_5984.JPG" alt="Risheek and Bhargavi wedding moment" width="1512" height="1006" loading="lazy">
+            <span class="photo-index" aria-hidden="true">04</span><span class="photo-expand" aria-hidden="true">&#x2922;</span>
+          </a>
+        </figure>
+        <figure class="photo-card">
+          <a class="glightbox" href="assets/DSC_5760.JPG" data-gallery="full-wedding-gallery" data-title="Risheek &amp; Bhargavi">
+            <img src="assets/DSC_5760.JPG" alt="Risheek and Bhargavi wedding portrait" width="1006" height="1512" loading="lazy">
+            <span class="photo-index" aria-hidden="true">05</span><span class="photo-expand" aria-hidden="true">&#x2922;</span>
+          </a>
+        </figure>
+        <figure class="photo-card">
+          <a class="glightbox" href="assets/DSC_6276.JPG" data-gallery="full-wedding-gallery" data-title="Risheek &amp; Bhargavi">
+            <img src="assets/DSC_6276.JPG" alt="Risheek and Bhargavi wedding moment" width="1512" height="1006" loading="lazy">
+            <span class="photo-index" aria-hidden="true">06</span><span class="photo-expand" aria-hidden="true">&#x2922;</span>
+          </a>
+        </figure>
+        <figure class="photo-card">
+          <a class="glightbox" href="assets/DSC_5798.JPG" data-gallery="full-wedding-gallery" data-title="Risheek &amp; Bhargavi">
+            <img src="assets/DSC_5798.JPG" alt="Risheek and Bhargavi wedding moment" width="1512" height="1006" loading="lazy">
+            <span class="photo-index" aria-hidden="true">07</span><span class="photo-expand" aria-hidden="true">&#x2922;</span>
+          </a>
+        </figure>
+        <figure class="photo-card">
+          <a class="glightbox" href="assets/DSC_6221.JPG" data-gallery="full-wedding-gallery" data-title="Risheek &amp; Bhargavi">
+            <img src="assets/DSC_6221.JPG" alt="Risheek and Bhargavi wedding moment" width="1512" height="1006" loading="lazy">
+            <span class="photo-index" aria-hidden="true">08</span><span class="photo-expand" aria-hidden="true">&#x2922;</span>
+          </a>
+        </figure>
+        <figure class="photo-card">
+          <a class="glightbox" href="assets/DSC_5803.JPG" data-gallery="full-wedding-gallery" data-title="Risheek &amp; Bhargavi">
+            <img src="assets/DSC_5803.JPG" alt="Risheek and Bhargavi wedding moment" width="1512" height="1006" loading="lazy">
+            <span class="photo-index" aria-hidden="true">09</span><span class="photo-expand" aria-hidden="true">&#x2922;</span>
+          </a>
+        </figure>
+        <figure class="photo-card">
+          <a class="glightbox" href="assets/DSC_5793.JPG" data-gallery="full-wedding-gallery" data-title="Risheek &amp; Bhargavi">
+            <img src="assets/DSC_5793.JPG" alt="Risheek and Bhargavi wedding moment" width="1512" height="1006" loading="lazy">
+            <span class="photo-index" aria-hidden="true">10</span><span class="photo-expand" aria-hidden="true">&#x2922;</span>
+          </a>
+        </figure>
+        <figure class="photo-card">
+          <a class="glightbox" href="assets/DSC_5325.JPG" data-gallery="full-wedding-gallery" data-title="Risheek &amp; Bhargavi">
+            <img src="assets/DSC_5325.JPG" alt="Risheek and Bhargavi wedding moment" width="1451" height="965" loading="lazy">
+            <span class="photo-index" aria-hidden="true">11</span><span class="photo-expand" aria-hidden="true">&#x2922;</span>
+          </a>
+        </figure>
+        <figure class="photo-card">
+          <a class="glightbox" href="assets/DSC_5346.JPG" data-gallery="full-wedding-gallery" data-title="Risheek &amp; Bhargavi">
+            <img src="assets/DSC_5346.JPG" alt="Risheek and Bhargavi wedding moment" width="1436" height="955" loading="lazy">
+            <span class="photo-index" aria-hidden="true">12</span><span class="photo-expand" aria-hidden="true">&#x2922;</span>
+          </a>
+        </figure>
+        <figure class="photo-card">
+          <a class="glightbox" href="assets/DSC_5565.JPG" data-gallery="full-wedding-gallery" data-title="Risheek &amp; Bhargavi">
+            <img src="assets/DSC_5565.JPG" alt="Risheek and Bhargavi wedding portrait" width="679" height="1020" loading="lazy">
+            <span class="photo-index" aria-hidden="true">13</span><span class="photo-expand" aria-hidden="true">&#x2922;</span>
+          </a>
+        </figure>
+        <figure class="photo-card">
+          <a class="glightbox" href="assets/DSC_5082.JPG" data-gallery="full-wedding-gallery" data-title="Bhargavi">
+            <img src="assets/DSC_5082.JPG" alt="Bhargavi wedding portrait" width="1006" height="1512" loading="lazy">
+            <span class="photo-index" aria-hidden="true">14</span><span class="photo-expand" aria-hidden="true">&#x2922;</span>
+          </a>
+        </figure>
+        <figure class="photo-card">
+          <a class="glightbox" href="assets/DSC_6304.JPG" data-gallery="full-wedding-gallery" data-title="Risheek">
+            <img src="assets/DSC_6304.JPG" alt="Risheek wedding portrait" width="4024" height="6048" loading="lazy">
+            <span class="photo-index" aria-hidden="true">15</span><span class="photo-expand" aria-hidden="true">&#x2922;</span>
+          </a>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <span>Risheek &amp; Bhargavi</span>
+    <a class="back-link" href="index.html"><span aria-hidden="true">&larr;</span> Back to the invitation</a>
+  </footer>
+
+  <script src="assets/vendor/glightbox/glightbox.min.js"></script>
+  <script>
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 24), { passive:true });
+
+    const cards = document.querySelectorAll('.photo-card');
+    if('IntersectionObserver' in window){
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if(!entry.isIntersecting) return;
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold:0.08 });
+      cards.forEach((card) => observer.observe(card));
+    }else{
+      cards.forEach((card) => card.classList.add('in-view'));
+    }
+
+    if(typeof GLightbox === 'function'){
+      GLightbox({
+        selector:'.glightbox[data-gallery="full-wedding-gallery"]',
+        touchNavigation:true,
+        loop:true,
+        zoomable:true,
+        draggable:true,
+        autoplayVideos:true,
+        openEffect:'fade',
+        closeEffect:'fade',
+        plyr:{
+          css:'assets/vendor/plyr/plyr.css',
+          js:'assets/vendor/plyr/plyr.min.js',
+          config:{
+            ratio:'16:9',
+            fullscreen:{ enabled:true, iosNative:true },
+            youtube:{ noCookie:true, rel:0, showinfo:0, iv_load_policy:3 }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
