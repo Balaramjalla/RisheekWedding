@@ -543,6 +543,10 @@
   .date-grid{ display:flex; align-items:baseline; justify-content:center; gap:1.4rem; margin-top:1.4rem; flex-wrap:wrap; }
   .date-month{ font-family:var(--font-display); font-style:italic; font-size:2.4rem; color:var(--gold-light); transform:scale(0.85); }
   .date-day{ font-family:var(--font-display); font-size:5.5rem; font-weight:600; color:var(--ivory); line-height:1; }
+  .date-day sup{
+    position:relative; top:-0.2em; margin-left:0.08em;
+    color:var(--gold-light); font-size:0.3em; font-style:italic;
+  }
   .date-year{
     font-family:var(--font-eyebrow); font-size:1.6rem; letter-spacing:0.15em; color:var(--gold);
     text-shadow: 0 0 22px rgba(212,175,55,0.55);
@@ -826,6 +830,10 @@
   .live-date strong{
     font-family:var(--font-display); font-size:3.8rem; font-weight:600; line-height:0.85;
   }
+  .live-date strong sup{
+    position:relative; top:-0.2em; margin-left:0.06em;
+    font-size:0.32em; font-style:italic;
+  }
   .live-date span{
     margin-top:0.75rem; font-family:var(--font-eyebrow); font-size:0.72rem;
     letter-spacing:0.18em; text-transform:uppercase;
@@ -834,7 +842,7 @@
   .live-coming-copy p{ max-width:560px; margin:0; font-size:0.96rem; line-height:1.8; opacity:0.82; }
   .live-coming-time{
     display:block; margin-top:1.15rem; color:var(--gold-light);
-    font-family:var(--font-eyebrow); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase;
+     font-size:0.75rem; letter-spacing:0.12em;
   }
   @media (max-width:620px){
     .live-coming-soon{ grid-template-columns:1fr; text-align:center; }
@@ -913,7 +921,7 @@
   }
   .avatar img{ width:100%; height:100%; object-fit:cover; border-radius:50%; }
   .person-card .name{ font-size:0.95rem; font-family:var(--font-body); font-weight:500; }
-  .person-card .rel{ font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); opacity:0.8; margin-top:2px; }
+  .person-card .rel{ font-size:0.72rem; letter-spacing:0.1em; color:var(--gold); opacity:0.8; margin-top:2px; }
 
   /* ============================================================
      RSVP
@@ -1260,19 +1268,19 @@
   <div class="date-card glass-card reveal">
     <div class="scratch-inner" id="scratch-inner">
       <div class="date-content" id="date-content">
-        <div class="ornament"><span class="line"></span>
+        <!-- <div class="ornament"><span class="line"></span>
           <svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"/></svg>
           <span class="line"></span>
-        </div>
+        </div> -->
         <div class="date-line"> Join Our New Journey </div>
          <div class="date-line"> On </div>
         <div class="date-grid">
           <div class="date-month">August</div>
-          <div class="date-day">23</div>
+          <div class="date-day">23<sup>rd</sup></div>
           <div class="date-year">2026</div>
         </div>
         <div class="date-weekday">Sunday</div>
-        <div class="date-muhurtham">Muhurtham: <strong>11:23 AM</strong></div>
+        <div class="date-muhurtham">Shubha Muhurtham: <strong>11:23 AM</strong></div>
       </div>
       <canvas id="scratch-canvas" role="button" tabindex="0" aria-label="Scratch this card to reveal the wedding date"></canvas>
       <canvas id="burst-canvas" aria-hidden="true"></canvas>
@@ -1286,7 +1294,7 @@
      ============================================================ -->
 <section id="countdown" class="section reveal countdown-locked" hidden aria-hidden="true">
   <div class="section-head">
-    <span class="eyebrow">The Wait Begins</span>
+    <span class="eyebrow">SAVE THE DATE</span>
     <h2>Counting Every Moment</h2>
   </div>
   <div class="count-wrap">
@@ -1302,7 +1310,7 @@
      ============================================================ -->
 <section id="couple" class="section">
   <div class="section-head reveal">
-    <span class="eyebrow">With Their Families</span>
+    <!-- <span class="eyebrow">With Their Families</span> -->
     <h2>The Bride &amp; Groom</h2>
   </div>
   <div class="couple-grid">
@@ -1338,18 +1346,18 @@
   </div>
   <div class="event-tab-list reveal" role="tablist" aria-label="Wedding events by person">
    
-    <button class="event-tab" id="event-tab-groom" type="button" role="tab" aria-selected="false" aria-controls="event-panel-groom" tabindex="-1">
+    <button class="event-tab" id="event-tab-groom" type="button" role="tab" aria-selected="true" aria-controls="event-panel-groom" tabindex="0">
       <span class="event-tab-role">Groom's Events</span>
       <span class="event-tab-name">Risheek</span>
     </button>
 
-     <button class="event-tab" id="event-tab-bride" type="button" role="tab" aria-selected="true" aria-controls="event-panel-bride" tabindex="0">
+     <button class="event-tab" id="event-tab-bride" type="button" role="tab" aria-selected="false" aria-controls="event-panel-bride" tabindex="1">
       <span class="event-tab-role">Bride's Events</span>
       <span class="event-tab-name">Bhargavi</span>
     </button>
   </div>
 
-  <div class="event-panel" id="event-panel-bride" role="tabpanel" aria-labelledby="event-tab-bride" tabindex="0">
+  <div class="event-panel" id="event-panel-bride" role="tabpanel" aria-labelledby="event-tab-bride" tabindex="1" hidden>
     <div class="event-panel-head">
       <span class="eyebrow">Bride &middot; Bhargavi</span>
       <h3>Bride's Celebrations</h3>
@@ -1358,27 +1366,33 @@
       <div class="event-card event-mehendi glass-card reveal reveal-delay-1">
         <span class="eyebrow">01</span>
         <h3>Mehendi</h3>
-        <div class="event-meta"><b>Date</b> 21 Aug 2026<br><b>Time</b> 6:00 PM<br><b>Venue</b> Family Residence</div>
+        <div class="event-meta"><b>Date</b> 21st Aug 2026<br><b>Time</b> 6:00 PM<br><b>Venue</b> Family Residence</div>
       </div>
       <div class="event-card event-sacred glass-card reveal reveal-delay-1">
         <span class="eyebrow">02</span>
         <h3>Sacred Wedding Ritual</h3>
-        <div class="event-meta"><b>Date</b> 22 Aug 2026<br><b>Time</b> 10:00 AM<br><b>Venue</b> Family Residence</div>
+        <div class="event-meta"><b>Date</b> 22nd Aug 2026<br><b>Time</b> 10:00 AM<br><b>Venue</b> Family Residence</div>
       </div>
         <div class="event-card event-sacred glass-card reveal reveal-delay-1">
         <span class="eyebrow">03</span>
         <h3>Lunch</h3>
-        <div class="event-meta"><b>Date</b> 22 Aug 2026<br><b>Time</b> 12:30 PM<br><b>Venue</b> Family Residence</div>
+        <div class="event-meta"><b>Date</b> 22nd Aug 2026<br><b>Time</b> 12:30 PM<br><b>Venue</b> Family Residence</div>
       </div>
+       <div class="event-card event-nalugu glass-card reveal">
+        <span class="eyebrow">05</span>
+        <h3>Couple Nalugu Ritual</h3>
+        <div class="event-meta"><b>Date</b> 22nd Aug 2026<br><b>Time</b> 6:00 PM<br><b>Venue</b> Groom's Residence</div>
+      </div>
+
        <div class="event-card event-wedding glass-card reveal reveal-delay-1">
-        <span class="eyebrow">04</span>
+        <span class="eyebrow">06</span>
         <h3>Wedding</h3>
-        <div class="event-meta"><b>Date</b> 23 Aug 2026<br><b>Time</b> 11:23 AM<br><b>Venue</b> PTS Convention Hall, Darsi</div>
+        <div class="event-meta"><b>Date</b> 23rd Aug 2026<br><b>Time</b> 11:23 AM<br><b>Venue</b> PTS Convention Hall, Darsi</div>
       </div>
     </div>
   </div>
 
-  <div class="event-panel" id="event-panel-groom" role="tabpanel" aria-labelledby="event-tab-groom" tabindex="0" hidden>
+  <div class="event-panel" id="event-panel-groom" role="tabpanel" aria-labelledby="event-tab-groom" tabindex="0">
     <div class="event-panel-head">
       <span class="eyebrow">Groom &middot; Risheek</span>
       <h3>Groom's Celebrations</h3>
@@ -1387,32 +1401,32 @@
         <div class="event-card event-haldi glass-card reveal">
         <span class="eyebrow">01</span>
         <h3>Haldi</h3>
-        <div class="event-meta"><b>Date</b> 21 Aug 2026<br><b>Time</b> 5:00 PM<br><b>Venue</b> Family Residence</div>
+        <div class="event-meta"><b>Date</b> 21st Aug 2026<br><b>Time</b> 5:00 PM<br><b>Venue</b> Family Residence</div>
       </div>
       <div class="event-card event-mehendi glass-card reveal reveal-delay-1">
         <span class="eyebrow">02</span>
         <h3>Mehendi</h3>
-        <div class="event-meta"><b>Date</b> 21 Aug 2026<br><b>Time</b> 8:00 PM<br><b>Venue</b> Family Residence</div>
+        <div class="event-meta"><b>Date</b> 21st Aug 2026<br><b>Time</b> 8:00 PM<br><b>Venue</b> Family Residence</div>
       </div>
       <div class="event-card event-sacred glass-card reveal reveal-delay-1">
         <span class="eyebrow">03</span>
         <h3>Sacred Wedding Ritual</h3>
-        <div class="event-meta"><b>Date</b> 22 Aug 2026<br><b>Time</b> 10:00 AM<br><b>Venue</b> Family Residence</div>
+        <div class="event-meta"><b>Date</b> 22nd Aug 2026<br><b>Time</b> 10:00 AM<br><b>Venue</b> Family Residence</div>
       </div>
       <div class="event-card event-nalugu glass-card reveal">
         <span class="eyebrow">04</span>
         <h3>Couple Nalugu Ritual</h3>
-        <div class="event-meta"><b>Date</b> 22 Aug 2026<br><b>Time</b> 6:00 PM<br><b>Venue</b> Family Residence</div>
+        <div class="event-meta"><b>Date</b> 22nd Aug 2026<br><b>Time</b> 6:00 PM<br><b>Venue</b> Family Residence</div>
       </div>
       <div class="event-card event-wedding glass-card reveal reveal-delay-1">
         <span class="eyebrow">05</span>
         <h3>Wedding</h3>
-        <div class="event-meta"><b>Date</b> 23 Aug 2026<br><b>Time</b> 11:23 AM<br><b>Venue</b> PTS Convention Hall, Darsi</div>
+        <div class="event-meta"><b>Date</b> 23rd Aug 2026<br><b>Time</b> 11:23 AM<br><b>Venue</b> PTS Convention Hall, Darsi</div>
       </div>
       <div class="event-card event-vratham glass-card reveal reveal-delay-1">
         <span class="eyebrow">06</span>
         <h3>Vratham</h3>
-        <div class="event-meta"><b>Date</b> 24 Aug 2026<br><b>Time</b> 10:00 AM<br><b>Venue</b> Family Residence</div>
+        <div class="event-meta"><b>Date</b> 24th Aug 2026<br><b>Time</b> 10:00 AM<br><b>Venue</b> Family Residence</div>
       </div>
     </div>
   </div>
@@ -1431,7 +1445,7 @@
     <a class="g-item reveal glightbox" href="assets/DSC_5565.JPG" data-gallery="wedding-gallery" data-title="Wedding Moment"><img class="ph" src="assets/DSC_5565.JPG" alt="Wedding moment" loading="lazy"><span class="g-zoom">⤢</span></a>
     <a class="g-item reveal glightbox" href="assets/DSC_5798.JPG" data-gallery="wedding-gallery" data-title="Wedding Moment"><img class="ph" src="assets/DSC_5798.JPG" alt="Wedding moment" loading="lazy"><span class="g-zoom">⤢</span></a>
     <a class="g-item reveal glightbox" href="assets/DSC_5984.JPG" data-gallery="wedding-gallery" data-title="Wedding Moment"><img class="ph" src="assets/DSC_5984.JPG" alt="Wedding moment" loading="lazy"><span class="g-zoom">⤢</span></a>
-    <a class="g-item reveal glightbox" href="assets/DSC_5760.JPG" data-gallery="wedding-gallery" data-title="Wedding Moment"><img class="ph" src="assets/DSC_5760.JPG" alt="Wedding moment" loading="lazy"><span class="g-zoom">⤢</span></a>
+    <!-- <a class="g-item reveal glightbox" href="assets/DSC_5760.JPG" data-gallery="wedding-gallery" data-title="Wedding Moment"><img class="ph" src="assets/DSC_5760.JPG" alt="Wedding moment" loading="lazy"><span class="g-zoom">⤢</span></a> -->
     <a class="g-item reveal glightbox" href="assets/DSC_5793.JPG" data-gallery="wedding-gallery" data-title="Wedding Moment"><img class="ph" src="assets/DSC_5793.JPG" alt="Wedding moment" loading="lazy"><span class="g-zoom">⤢</span></a>
   </div>
   <div class="gallery-more reveal">
@@ -1470,14 +1484,14 @@
   </div>
   <div class="live-coming-soon glass-card reveal" role="status">
     <time class="live-date" datetime="2026-08-23T11:23:00+05:30">
-      <strong>23</strong>
+      <strong>23<sup>rd</sup></strong>
       <span>Aug 2026</span>
     </time>
     <div class="live-coming-copy">
       <span class="eyebrow">Broadcast Notice</span>
       <h3>Coming Soon</h3>
       <p>Our wedding ceremony will be streamed here. The live link and joining details will be added on the wedding day.</p>
-      <time class="live-coming-time" datetime="2026-08-23T11:23:00+05:30">23 August 2026 &middot; 08:00 AM</time>
+      <time class="live-coming-time" datetime="2026-08-23T11:23:00+05:30">23rd August 2026 &middot; 08:00 AM</time>
     </div>
   </div>
 
@@ -1554,7 +1568,7 @@
      ============================================================ -->
 <section id="rsvp" class="section">
   <div class="section-head reveal">
-    <span class="eyebrow">Share your wishes and blessing to</span>
+    <span class="eyebrow">Share your wishes and blessing's to</span>
     <h2>Couple</h2>
   </div>
   <div class="rsvp-wrap glass-card reveal">
@@ -1610,11 +1624,11 @@
     <span class="eyebrow">With Gratitude</span>
     <h3>Thank You For Being Part of Our Story</h3>
     <p class="footer-blessing">With joyful hearts and folded hands, we look forward to celebrating this sacred beginning with the people who mean the most to us.</p>
-    <div class="footer-icons">
+    <!-- <div class="footer-icons">
       <a href="#" aria-label="Instagram">IG</a>
       <a href="#" aria-label="WhatsApp">WA</a>
       <a href="#" aria-label="Google Maps">GM</a>
-    </div>
+    </div> -->
     <div class="footer-meta">
       <span class="footer-chip">Save the Date</span>
       <span class="footer-chip">Celebrate With Us</span>
@@ -2437,7 +2451,7 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e)=>{
       updateCountdown();
       requestAnimationFrame(()=> countdownSection.classList.add('in-view'));
     }
-    hint.textContent = "✦ Save the date — we can't wait to celebrate ✦";
+    hint.textContent = "✦ we can't wait to celebrate ✦";
     hint.style.color = 'var(--gold-light)';
     playBurst();
   }
