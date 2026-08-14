@@ -1831,6 +1831,16 @@ openBtn.addEventListener('click', ()=>{
     if(!v) return;
     v.play().catch(()=>{});
   });
+  setTimeout(()=>{
+    const hero = document.getElementById('hero');
+    const dateReveal = document.getElementById('date-reveal');
+    const viewportMiddle = window.innerHeight / 2;
+    const heroBounds = hero.getBoundingClientRect();
+
+    if(heroBounds.top <= viewportMiddle && heroBounds.bottom >= viewportMiddle) {
+      dateReveal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 20000);
   setTimeout(()=>{ doors.classList.add('gone'); }, 1900);
 });
 document.body.style.overflow = 'hidden';
