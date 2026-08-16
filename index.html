@@ -2201,8 +2201,28 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e)=>{
     }
   }
 
+  function cardStep(){
+    const firstCard = track.querySelector('.wish-card');
+    if(!firstCard) return viewport.clientWidth;
+    const trackStyles = window.getComputedStyle(track);
+    const gap = parseFloat(trackStyles.columnGap || trackStyles.gap) || 0;
+    return firstCard.getBoundingClientRect().width + gap;
+  }
+
   function offsetForPage(targetPage){
-    return (targetPage + cloneSpan) * viewport.clientWidth;
+    const pages = totalPages();
+    let targetCardIndex;
+
+    if(targetPage < 0){
+      const cardsOnLastPage = logicalCards.length - ((pages - 1) * perView);
+      targetCardIndex = cloneSpan - cardsOnLastPage;
+    }else if(targetPage >= pages){
+      targetCardIndex = cloneSpan + logicalCards.length;
+    }else{
+      targetCardIndex = cloneSpan + (targetPage * perView);
+    }
+
+    return targetCardIndex * cardStep();
   }
 
   function jumpToPage(targetPage){
