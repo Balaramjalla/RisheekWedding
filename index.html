@@ -1825,6 +1825,7 @@ bgMusic.volume = 0.5;
 bgMusic.muted = false;
 let invitationOpened = false;
 let pageIsActive = document.visibilityState === 'visible';
+let galleryVideoPlaying = false;
 
 function tryPlayMusic() {
     bgMusic.play().catch(err => {
@@ -1836,9 +1837,18 @@ function updateMusicState(options = {}) {
   const { attemptPlay = false } = options;
   const shouldMute = !invitationOpened || !pageIsActive;
   bgMusic.muted = shouldMute;
+  if(galleryVideoPlaying) {
+    bgMusic.pause();
+    return;
+  }
   if(invitationOpened && !shouldMute && attemptPlay) {
     tryPlayMusic();
   }
+}
+
+function setGalleryVideoPlaying(isPlaying) {
+  galleryVideoPlaying = isPlaying;
+  updateMusicState({ attemptPlay: !isPlaying });
 }
 
 function spawnPetals(count){
@@ -2641,7 +2651,7 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e)=>{
 <script>
   document.addEventListener('DOMContentLoaded', function(){
     if(typeof GLightbox === 'function'){
-      GLightbox({
+      const galleryLightbox = GLightbox({
         selector: '.glightbox[data-gallery="wedding-gallery"]',
         touchNavigation: true,
         loop: true,
@@ -2650,6 +2660,42 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e)=>{
         openEffect: 'fade',
         closeEffect: 'fade'
       });
+
+      const boundVideoPlayers = new WeakSet();
+      const isVideoSlide = (slide) => slide?.slideConfig?.type === 'video';
+
+      function bindVideoPlayer(slide) {
+        const player = slide?.player;
+        if(!player || typeof player.on !== 'function' || boundVideoPlayers.has(player)) return;
+        boundVideoPlayers.add(player);
+        const isActivePlayer = () => galleryLightbox.getActiveSlideIndex() === slide.slideIndex;
+        player.on('play', () => {
+          if(isActivePlayer()) setGalleryVideoPlaying(true);
+        });
+        player.on('pause', () => {
+          if(isActivePlayer()) setGalleryVideoPlaying(false);
+        });
+        player.on('ended', () => {
+          if(isActivePlayer()) setGalleryVideoPlaying(false);
+        });
+      }
+
+      galleryLightbox.on('open', () => {
+        const activeSlide = galleryLightbox.getActiveSlide();
+        setGalleryVideoPlaying(Boolean(activeSlide?.querySelector('.gvideo-container')));
+      });
+      galleryLightbox.on('slide_after_load', (slide) => {
+        if(!isVideoSlide(slide)) return;
+        bindVideoPlayer(slide);
+        if(galleryLightbox.getActiveSlideIndex() === slide.slideIndex) {
+          setGalleryVideoPlaying(true);
+        }
+      });
+      galleryLightbox.on('slide_changed', ({ current }) => {
+        bindVideoPlayer(current);
+        setGalleryVideoPlaying(isVideoSlide(current));
+      });
+      galleryLightbox.on('close', () => setGalleryVideoPlaying(false));
     }
   });
 </script>

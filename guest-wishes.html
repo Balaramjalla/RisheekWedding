@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Guest Wishes | Risheek &amp; Bhargavi</title>
+<meta name="description" content="Guest wishes for Risheek and Bhargavi.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Cinzel:wght@500;600&amp;family=Jost:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --obsidian: #16070a;
+    --maroon: #2b0d13;
+    --maroon-light: #3d151d;
+    --gold: #d4af37;
+    --gold-light: #f1d27a;
+    --ivory: #fdf3df;
+    --muted: #c8bca8;
+    --peacock: #46a89e;
+    --kumkum: #c6414f;
+    --line: rgba(212, 175, 55, 0.22);
+    --panel: rgba(37, 13, 18, 0.82);
+    --font-display: "Cormorant Garamond", serif;
+    --font-label: "Cinzel", serif;
+    --font-body: "Jost", sans-serif;
+    --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    min-width: 280px;
+    min-height: 100vh;
+    margin: 0;
+    color: var(--ivory);
+    background:
+      linear-gradient(135deg, transparent 0 49%, rgba(212, 175, 55, 0.035) 49% 51%, transparent 51%) 0 0 / 34px 34px,
+      linear-gradient(180deg, var(--obsidian), #210a0f 52%, #120609);
+    font-family: var(--font-body);
+    font-weight: 300;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 20;
+    height: 3px;
+    background: linear-gradient(90deg, var(--kumkum), var(--gold), var(--peacock));
+  }
+
+  button,
+  input,
+  select {
+    font: inherit;
+  }
+
+  button,
+  select {
+    cursor: pointer;
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid var(--line);
+    background: rgba(22, 7, 10, 0.9);
+    backdrop-filter: blur(18px);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: min(1180px, calc(100% - 40px));
+    min-height: 82px;
+    margin: 0 auto;
+    gap: 24px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    gap: 13px;
+  }
+
+  .brand-photo {
+    width: 52px;
+    height: 52px;
+    flex: 0 0 auto;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    border-radius: 6px;
+    object-fit: cover;
+    object-position: center 35%;
+  }
+
+  .brand-kicker {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--gold);
+    font-family: var(--font-label);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .brand-name {
+    display: block;
+    overflow: hidden;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .connection {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    min-height: 34px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.025);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .connection-dot {
+    width: 7px;
+    height: 7px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.12);
+  }
+
+  .connection.live .connection-dot {
+    background: var(--peacock);
+    box-shadow: 0 0 0 4px rgba(70, 168, 158, 0.13);
+  }
+
+  .connection.error .connection-dot {
+    background: var(--kumkum);
+    box-shadow: 0 0 0 4px rgba(198, 65, 79, 0.13);
+  }
+
+  main {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 54px 0 64px;
+  }
+
+  .page-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    gap: 32px;
+  }
+
+  .eyebrow {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--gold);
+    font-family: var(--font-label);
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 0.95;
+  }
+
+  .heading-copy p {
+    max-width: 580px;
+    margin: 13px 0 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .summary {
+    flex: 0 0 auto;
+    padding-left: 28px;
+    border-left: 1px solid var(--line);
+    text-align: right;
+  }
+
+  .summary-count {
+    display: block;
+    color: var(--gold-light);
+    font-family: var(--font-display);
+    font-size: 2.1rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .summary-label,
+  .updated-at {
+    display: block;
+    color: var(--muted);
+    font-size: 0.72rem;
+  }
+
+  .summary-label {
+    margin-top: 3px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .updated-at {
+    margin-top: 10px;
+  }
+
+  .wishes-panel {
+    overflow: hidden;
+    scroll-margin-top: 98px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    box-shadow: var(--shadow);
+  }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid var(--line);
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .search-field {
+    position: relative;
+    flex: 1 1 360px;
+  }
+
+  .search-field::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    transform: translateY(-65%);
+    pointer-events: none;
+  }
+
+  .search-field::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 24px;
+    width: 6px;
+    height: 1.5px;
+    background: var(--gold);
+    transform: translateY(4px) rotate(45deg);
+    transform-origin: left center;
+    pointer-events: none;
+  }
+
+  .search-field input,
+  .control-select {
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid rgba(212, 175, 55, 0.24);
+    border-radius: 6px;
+    color: var(--ivory);
+    background: rgba(10, 4, 6, 0.55);
+    outline: none;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .search-field input {
+    padding: 0 15px 0 40px;
+  }
+
+  .search-field input::placeholder {
+    color: rgba(200, 188, 168, 0.63);
+  }
+
+  .filter-wrap {
+    flex: 0 0 190px;
+  }
+
+  .sort-wrap {
+    flex: 0 0 170px;
+  }
+
+  .control-select {
+    padding: 0 34px 0 13px;
+  }
+
+  .search-field input:focus,
+  .control-select:focus,
+  .page-button:focus-visible,
+  .retry-button:focus-visible {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+  }
+
+  .result-count {
+    flex: 0 0 auto;
+    min-width: 92px;
+    color: var(--muted);
+    font-size: 0.74rem;
+    text-align: right;
+  }
+
+  .table-wrap[hidden] {
+    display: none;
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  .pagination {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    min-height: 68px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--line);
+    gap: 16px;
+    background: rgba(11, 5, 7, 0.26);
+  }
+
+  .page-size-control {
+    display: flex;
+    align-items: center;
+    color: var(--muted);
+    font-size: 0.72rem;
+    gap: 9px;
+  }
+
+  .page-size-control .control-select {
+    width: 68px;
+    min-height: 38px;
+    padding-left: 10px;
+  }
+
+  .page-summary {
+    color: var(--muted);
+    font-size: 0.72rem;
+    text-align: center;
+  }
+
+  .page-controls,
+  .page-numbers {
+    display: flex;
+    align-items: center;
+  }
+
+  .page-controls {
+    justify-content: flex-end;
+    gap: 6px;
+  }
+
+  .page-numbers {
+    gap: 6px;
+  }
+
+  .page-button {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    place-items: center;
+    border: 1px solid rgba(212, 175, 55, 0.24);
+    border-radius: 6px;
+    color: var(--ivory);
+    background: rgba(255, 255, 255, 0.025);
+    font-size: 0.76rem;
+    transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+  }
+
+  .page-button:hover:not(:disabled),
+  .page-button[aria-current="page"] {
+    border-color: var(--gold);
+    color: var(--obsidian);
+    background: var(--gold);
+  }
+
+  .page-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+  }
+
+  .page-ellipsis {
+    width: 24px;
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-align: center;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  col.name-column {
+    width: 24%;
+  }
+
+  col.wish-column {
+    width: 54%;
+  }
+
+  col.date-column {
+    width: 22%;
+  }
+
+  th {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--line);
+    color: var(--gold);
+    background: rgba(11, 5, 7, 0.33);
+    font-family: var(--font-label);
+    font-size: 0.63rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: 19px 20px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+    vertical-align: top;
+  }
+
+  tbody tr {
+    transition: background-color 160ms ease;
+  }
+
+  tbody tr:hover {
+    background: rgba(212, 175, 55, 0.035);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .name-wrap {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    gap: 11px;
+  }
+
+  .guest-initial {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid rgba(70, 168, 158, 0.42);
+    border-radius: 50%;
+    color: var(--peacock);
+    background: rgba(70, 168, 158, 0.08);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .guest-name {
+    overflow-wrap: anywhere;
+    font-size: 0.87rem;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  .wish-message {
+    margin: 0;
+    color: #f2e7d2;
+    font-family: var(--font-display);
+    font-size: 1.08rem;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+  }
+
+  .posted-date {
+    display: block;
+    color: var(--ivory);
+    font-size: 0.8rem;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  .posted-time {
+    display: block;
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 0.72rem;
+  }
+
+  .state-view {
+    display: grid;
+    min-height: 310px;
+    padding: 48px 20px;
+    place-items: center;
+    text-align: center;
+  }
+
+  .state-view[hidden] {
+    display: none;
+  }
+
+  .state-inner {
+    max-width: 390px;
+  }
+
+  .state-mark {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 17px;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    color: var(--gold);
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+  }
+
+  .loading-spinner {
+    width: 28px;
+    height: 28px;
+    margin: 0 auto 18px;
+    border: 2px solid rgba(212, 175, 55, 0.16);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 800ms linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .state-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .state-copy {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 0.84rem;
+    line-height: 1.6;
+  }
+
+  .retry-button {
+    min-height: 40px;
+    margin-top: 20px;
+    padding: 0 18px;
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    color: var(--obsidian);
+    background: var(--gold);
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  footer {
+    padding: 22px 20px calc(22px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid rgba(212, 175, 55, 0.14);
+    color: rgba(200, 188, 168, 0.65);
+    font-family: var(--font-label);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 760px) {
+    .header-inner,
+    main {
+      width: min(100% - 28px, 1180px);
+    }
+
+    .header-inner {
+      min-height: 72px;
+    }
+
+    .brand-photo {
+      width: 44px;
+      height: 44px;
+    }
+
+    .brand-kicker {
+      font-size: 0.55rem;
+    }
+
+    .brand-name {
+      font-size: 1.05rem;
+    }
+
+    .connection {
+      width: 34px;
+      min-height: 34px;
+      padding: 0;
+      justify-content: center;
+    }
+
+    .connection-dot {
+      margin: 0;
+    }
+
+    .connection-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+    }
+
+    main {
+      padding: 38px 0 48px;
+    }
+
+    .wishes-panel {
+      scroll-margin-top: 84px;
+    }
+
+    .page-heading {
+      display: block;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 2.35rem;
+    }
+
+    .heading-copy p {
+      font-size: 0.85rem;
+    }
+
+    .summary {
+      display: flex;
+      align-items: baseline;
+      margin-top: 22px;
+      padding: 16px 0 0;
+      border-top: 1px solid var(--line);
+      border-left: 0;
+      gap: 8px;
+      text-align: left;
+    }
+
+    .summary-count {
+      font-size: 1.7rem;
+    }
+
+    .summary-label {
+      margin: 0;
+    }
+
+    .updated-at {
+      margin: 0 0 0 auto;
+      text-align: right;
+    }
+
+    .toolbar {
+      flex-wrap: wrap;
+      padding: 13px;
+    }
+
+    .search-field {
+      flex-basis: 100%;
+    }
+
+    .filter-wrap,
+    .sort-wrap {
+      flex: 1 1 130px;
+    }
+
+    .result-count {
+      min-width: auto;
+    }
+
+    .pagination {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      padding: 15px 12px;
+      gap: 12px;
+    }
+
+    .page-controls {
+      justify-content: center;
+      width: 100%;
+    }
+
+    .page-button {
+      width: 34px;
+      height: 34px;
+    }
+
+    thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+    }
+
+    table,
+    tbody,
+    tr,
+    td {
+      display: block;
+      width: 100%;
+    }
+
+    tbody tr {
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    tbody tr:last-child {
+      border-bottom: 0;
+    }
+
+    td {
+      padding: 0;
+      border: 0;
+    }
+
+    td + td {
+      margin-top: 18px;
+    }
+
+    td::before {
+      content: attr(data-label);
+      display: block;
+      margin-bottom: 7px;
+      color: var(--gold);
+      font-family: var(--font-label);
+      font-size: 0.57rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .name-wrap {
+      align-items: center;
+    }
+
+    .wish-message {
+      font-size: 1.03rem;
+    }
+
+    .posted-date,
+    .posted-time {
+      display: inline;
+    }
+
+    .posted-time::before {
+      content: " / ";
+      color: var(--gold);
+    }
+  }
+
+  @media (max-width: 380px) {
+    .brand-name {
+      max-width: 155px;
+    }
+
+    .summary {
+      flex-wrap: wrap;
+    }
+
+    .updated-at {
+      width: 100%;
+      margin-left: 0;
+      text-align: left;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <img class="brand-photo" src="assets/DSC_6276.JPG" alt="Risheek and Bhargavi">
+      <div>
+        <span class="brand-kicker">The Wedding</span>
+        <span class="brand-name">Risheek &amp; Bhargavi</span>
+      </div>
+    </div>
+    <div class="connection" id="connection-status" role="status" aria-live="polite">
+      <span class="connection-dot" aria-hidden="true"></span>
+      <span class="connection-label" id="connection-label">Connecting</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="page-heading" aria-labelledby="page-title">
+    <div class="heading-copy">
+      <span class="eyebrow">From loved ones</span>
+      <h1 id="page-title">Guest Wishes</h1>
+      <p>Messages shared by family and friends for the couple's new beginning.</p>
+    </div>
+    <div class="summary" aria-live="polite">
+      <span class="summary-count" id="total-count">0</span>
+      <span class="summary-label">Wishes posted</span>
+      <span class="updated-at" id="updated-at">Waiting for updates</span>
+    </div>
+  </section>
+
+  <section class="wishes-panel" aria-label="Guest wishes list">
+    <div class="toolbar">
+      <div class="search-field">
+        <label class="sr-only" for="wish-search">Search guest wishes</label>
+        <input id="wish-search" type="search" placeholder="Search name or wish" autocomplete="off">
+      </div>
+      <div class="filter-wrap">
+        <label class="sr-only" for="name-filter">Filter by guest name</label>
+        <select class="control-select" id="name-filter">
+          <option value="">All names</option>
+        </select>
+      </div>
+      <div class="sort-wrap">
+        <label class="sr-only" for="wish-sort">Sort guest wishes</label>
+        <select class="control-select" id="wish-sort">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="name">Name A-Z</option>
+        </select>
+      </div>
+      <span class="result-count" id="result-count">0 results</span>
+    </div>
+
+    <div id="wishes-region" aria-busy="true">
+      <div class="state-view" id="loading-state">
+        <div class="state-inner">
+          <div class="loading-spinner" aria-hidden="true"></div>
+          <h2 class="state-title">Loading wishes</h2>
+          <p class="state-copy">Connecting to the guest book.</p>
+        </div>
+      </div>
+
+      <div class="state-view" id="empty-state" hidden>
+        <div class="state-inner">
+          <div class="state-mark" aria-hidden="true">R&amp;B</div>
+          <h2 class="state-title" id="empty-title">No wishes yet</h2>
+          <p class="state-copy" id="empty-copy">Guest wishes will appear here as they are posted.</p>
+        </div>
+      </div>
+
+      <div class="state-view" id="error-state" hidden>
+        <div class="state-inner">
+          <div class="state-mark" aria-hidden="true">!</div>
+          <h2 class="state-title">Wishes unavailable</h2>
+          <p class="state-copy" id="error-copy">The guest book could not be loaded.</p>
+          <button class="retry-button" id="retry-button" type="button">Try again</button>
+        </div>
+      </div>
+
+      <div class="table-wrap" id="table-wrap" hidden>
+        <div class="table-scroll">
+          <table>
+            <caption class="sr-only">Guest names, wishes, and posted dates</caption>
+            <colgroup>
+              <col class="name-column">
+              <col class="wish-column">
+              <col class="date-column">
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Wish</th>
+                <th scope="col">Posted date</th>
+              </tr>
+            </thead>
+            <tbody id="wishes-body"></tbody>
+          </table>
+        </div>
+        <div class="pagination" aria-label="Guest wishes pagination">
+          <div class="page-size-control">
+            <label for="page-size">Rows per page</label>
+            <select class="control-select" id="page-size">
+              <option value="5" selected>5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+            </select>
+          </div>
+          <span class="page-summary" id="page-summary" aria-live="polite">Showing 0 of 0</span>
+          <nav class="page-controls" aria-label="Pages">
+            <button class="page-button" id="page-previous" type="button" aria-label="Previous page" title="Previous page">&larr;</button>
+            <div class="page-numbers" id="page-numbers"></div>
+            <button class="page-button" id="page-next" type="button" aria-label="Next page" title="Next page">&rarr;</button>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>Risheek &amp; Bhargavi / 23 August 2026</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script>
+  const FIREBASE_CONFIG = {
+    apiKey: "AIzaSyCFS9zkIeDen7G6tLCBXI04HpuyAMfdlHM",
+    authDomain: "risheek-c7ffe.firebaseapp.com",
+    projectId: "risheek-c7ffe",
+    storageBucket: "risheek-c7ffe.firebasestorage.app",
+    messagingSenderId: "936186580317",
+    appId: "1:936186580317:web:fbfdf356005c909e20ecb4",
+    measurementId: "G-HGZDSJB9HJ"
+  };
+  const WISHES_COLLECTION = "weddingWishes";
+
+  const connectionStatus = document.getElementById("connection-status");
+  const connectionLabel = document.getElementById("connection-label");
+  const totalCount = document.getElementById("total-count");
+  const resultCount = document.getElementById("result-count");
+  const updatedAt = document.getElementById("updated-at");
+  const wishesRegion = document.getElementById("wishes-region");
+  const wishesBody = document.getElementById("wishes-body");
+  const tableWrap = document.getElementById("table-wrap");
+  const loadingState = document.getElementById("loading-state");
+  const emptyState = document.getElementById("empty-state");
+  const errorState = document.getElementById("error-state");
+  const emptyTitle = document.getElementById("empty-title");
+  const emptyCopy = document.getElementById("empty-copy");
+  const errorCopy = document.getElementById("error-copy");
+  const searchInput = document.getElementById("wish-search");
+  const nameFilter = document.getElementById("name-filter");
+  const sortSelect = document.getElementById("wish-sort");
+  const pageSizeSelect = document.getElementById("page-size");
+  const pageSummary = document.getElementById("page-summary");
+  const pageNumbers = document.getElementById("page-numbers");
+  const previousPageButton = document.getElementById("page-previous");
+  const nextPageButton = document.getElementById("page-next");
+  const retryButton = document.getElementById("retry-button");
+
+  const dateFormatter = new Intl.DateTimeFormat("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
+  const timeFormatter = new Intl.DateTimeFormat("en-IN", {
+    hour: "numeric",
+    minute: "2-digit"
+  });
+  const updateFormatter = new Intl.DateTimeFormat("en-IN", {
+    hour: "numeric",
+    minute: "2-digit"
+  });
+
+  let wishes = [];
+  let unsubscribe = null;
+  let currentPage = 1;
+
+  function readField(data, fieldName) {
+    if(Object.prototype.hasOwnProperty.call(data, fieldName)) return data[fieldName];
+    const matchingKey = Object.keys(data).find((key) => key.trim() === fieldName);
+    return matchingKey ? data[matchingKey] : undefined;
+  }
+
+  function parsePostedDate(value) {
+    if(!value) return null;
+    if(typeof value.toDate === "function") return value.toDate();
+    if(typeof value.seconds === "number") return new Date(value.seconds * 1000);
+    if(typeof value._seconds === "number") return new Date(value._seconds * 1000);
+    const parsed = value instanceof Date ? value : new Date(value);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+  }
+
+  function normalizeWish(documentSnapshot) {
+    const data = documentSnapshot.data();
+    const rawName = readField(data, "name");
+    const rawMessage = readField(data, "message") ?? readField(data, "wish") ?? readField(data, "wishes");
+    const rawDate = readField(data, "createdAt") ?? readField(data, "postedDate") ?? readField(data, "postedAt");
+    return {
+      id: documentSnapshot.id,
+      name: String(rawName || "A Guest").trim() || "A Guest",
+      message: String(rawMessage || "").trim(),
+      postedAt: parsePostedDate(rawDate)
+    };
+  }
+
+  function setConnection(state, label) {
+    connectionStatus.className = "connection" + (state ? " " + state : "");
+    connectionLabel.textContent = label;
+  }
+
+  function showState(state) {
+    loadingState.hidden = state !== "loading";
+    emptyState.hidden = state !== "empty";
+    errorState.hidden = state !== "error";
+    tableWrap.hidden = state !== "table";
+    wishesRegion.setAttribute("aria-busy", state === "loading" ? "true" : "false");
+  }
+
+  function createWishRow(wish) {
+    const row = document.createElement("tr");
+
+    const nameCell = document.createElement("td");
+    nameCell.dataset.label = "Name";
+    const nameWrap = document.createElement("div");
+    nameWrap.className = "name-wrap";
+    const initial = document.createElement("span");
+    initial.className = "guest-initial";
+    initial.setAttribute("aria-hidden", "true");
+    initial.textContent = Array.from(wish.name)[0]?.toUpperCase() || "G";
+    const name = document.createElement("span");
+    name.className = "guest-name";
+    name.textContent = wish.name;
+    nameWrap.append(initial, name);
+    nameCell.appendChild(nameWrap);
+
+    const messageCell = document.createElement("td");
+    messageCell.dataset.label = "Wish";
+    const message = document.createElement("p");
+    message.className = "wish-message";
+    message.textContent = wish.message || "No wish message provided.";
+    messageCell.appendChild(message);
+
+    const dateCell = document.createElement("td");
+    dateCell.dataset.label = "Posted date";
+    const date = document.createElement("time");
+    date.className = "posted-date";
+    const time = document.createElement("span");
+    time.className = "posted-time";
+    if(wish.postedAt) {
+      date.dateTime = wish.postedAt.toISOString();
+      date.textContent = dateFormatter.format(wish.postedAt);
+      time.textContent = timeFormatter.format(wish.postedAt);
+    } else {
+      date.textContent = "Date unavailable";
+      time.textContent = "";
+    }
+    dateCell.append(date, time);
+
+    row.append(nameCell, messageCell, dateCell);
+    return row;
+  }
+
+  function updateNameFilter() {
+    const selectedName = nameFilter.value;
+    const names = new Map();
+    wishes.forEach((wish) => {
+      const normalizedName = wish.name.toLocaleLowerCase();
+      if(!names.has(normalizedName)) names.set(normalizedName, wish.name);
+    });
+
+    nameFilter.replaceChildren(new Option("All names", ""));
+    [...names.entries()]
+      .sort((left, right) => left[1].localeCompare(right[1]))
+      .forEach(([value, label]) => nameFilter.add(new Option(label, value)));
+
+    if(selectedName && names.has(selectedName)) {
+      nameFilter.value = selectedName;
+    } else {
+      nameFilter.value = "";
+    }
+  }
+
+  function getVisibleWishes() {
+    const searchTerm = searchInput.value.trim().toLocaleLowerCase();
+    const selectedName = nameFilter.value;
+    const filtered = wishes.filter((wish) => {
+      if(selectedName && wish.name.toLocaleLowerCase() !== selectedName) return false;
+      if(!searchTerm) return true;
+      return wish.name.toLocaleLowerCase().includes(searchTerm) ||
+        wish.message.toLocaleLowerCase().includes(searchTerm);
+    });
+
+    return filtered.sort((left, right) => {
+      if(sortSelect.value === "name") return left.name.localeCompare(right.name);
+      const leftTime = left.postedAt?.getTime() || 0;
+      const rightTime = right.postedAt?.getTime() || 0;
+      return sortSelect.value === "oldest" ? leftTime - rightTime : rightTime - leftTime;
+    });
+  }
+
+  function getPageItems(totalPages) {
+    if(totalPages <= 5) return Array.from({ length: totalPages }, (_, index) => index + 1);
+    if(currentPage <= 3) return [1, 2, 3, "ellipsis", totalPages];
+    if(currentPage >= totalPages - 2) {
+      return [1, "ellipsis", totalPages - 2, totalPages - 1, totalPages];
+    }
+    return [1, "ellipsis-before", currentPage, "ellipsis-after", totalPages];
+  }
+
+  function renderPagination(resultTotal, pageSize, totalPages, pageWishes) {
+    const firstResult = resultTotal ? ((currentPage - 1) * pageSize) + 1 : 0;
+    const lastResult = resultTotal ? firstResult + pageWishes.length - 1 : 0;
+    pageSummary.textContent = `Showing ${firstResult}-${lastResult} of ${resultTotal}`;
+    previousPageButton.disabled = currentPage === 1;
+    nextPageButton.disabled = currentPage === totalPages;
+    pageNumbers.replaceChildren();
+
+    getPageItems(totalPages).forEach((item) => {
+      if(typeof item !== "number") {
+        const ellipsis = document.createElement("span");
+        ellipsis.className = "page-ellipsis";
+        ellipsis.textContent = "...";
+        ellipsis.setAttribute("aria-hidden", "true");
+        pageNumbers.appendChild(ellipsis);
+        return;
+      }
+
+      const button = document.createElement("button");
+      button.className = "page-button";
+      button.type = "button";
+      button.textContent = String(item);
+      button.dataset.page = String(item);
+      button.setAttribute("aria-label", `Page ${item}`);
+      if(item === currentPage) button.setAttribute("aria-current", "page");
+      pageNumbers.appendChild(button);
+    });
+  }
+
+  function renderWishes() {
+    const visibleWishes = getVisibleWishes();
+    const pageSize = Number(pageSizeSelect.value);
+    const totalPages = Math.max(1, Math.ceil(visibleWishes.length / pageSize));
+    currentPage = Math.min(currentPage, totalPages);
+    const pageStart = (currentPage - 1) * pageSize;
+    const pageWishes = visibleWishes.slice(pageStart, pageStart + pageSize);
+    totalCount.textContent = String(wishes.length);
+    resultCount.textContent = visibleWishes.length + (visibleWishes.length === 1 ? " result" : " results");
+    wishesBody.replaceChildren();
+
+    if(!wishes.length) {
+      emptyTitle.textContent = "No wishes yet";
+      emptyCopy.textContent = "Guest wishes will appear here as they are posted.";
+      showState("empty");
+      return;
+    }
+
+    if(!visibleWishes.length) {
+      emptyTitle.textContent = "No matching wishes";
+      emptyCopy.textContent = "Try a different name or search term.";
+      showState("empty");
+      return;
+    }
+
+    const fragment = document.createDocumentFragment();
+  pageWishes.forEach((wish) => fragment.appendChild(createWishRow(wish)));
+    wishesBody.appendChild(fragment);
+  renderPagination(visibleWishes.length, pageSize, totalPages, pageWishes);
+    showState("table");
+  }
+
+  function subscribeToWishes() {
+    if(typeof firebase === "undefined") {
+      setConnection("error", "Offline");
+      errorCopy.textContent = "Firebase could not be loaded. Check the internet connection and try again.";
+      showState("error");
+      return;
+    }
+
+    if(unsubscribe) unsubscribe();
+    setConnection("", "Connecting");
+    showState("loading");
+
+    try {
+      if(!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+      const database = firebase.firestore();
+      unsubscribe = database.collection(WISHES_COLLECTION).onSnapshot((snapshot) => {
+        wishes = snapshot.docs.map(normalizeWish);
+        updateNameFilter();
+        updatedAt.textContent = "Updated " + updateFormatter.format(new Date());
+        setConnection("live", "Live updates");
+        renderWishes();
+      }, (error) => {
+        console.error("Failed to load guest wishes:", error);
+        setConnection("error", "Connection error");
+        errorCopy.textContent = "The guest book could not be loaded. Check Firebase access and try again.";
+        showState("error");
+      });
+    } catch(error) {
+      console.error("Failed to initialize guest wishes:", error);
+      setConnection("error", "Connection error");
+      errorCopy.textContent = "The guest book could not be initialized. Please try again.";
+      showState("error");
+    }
+  }
+
+  function resetPageAndRender() {
+    currentPage = 1;
+    renderWishes();
+  }
+
+  function goToPage(page) {
+    currentPage = page;
+    renderWishes();
+    document.querySelector(".wishes-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  searchInput.addEventListener("input", resetPageAndRender);
+  nameFilter.addEventListener("change", resetPageAndRender);
+  sortSelect.addEventListener("change", resetPageAndRender);
+  pageSizeSelect.addEventListener("change", resetPageAndRender);
+  previousPageButton.addEventListener("click", () => goToPage(Math.max(1, currentPage - 1)));
+  nextPageButton.addEventListener("click", () => {
+    const totalPages = Math.max(1, Math.ceil(getVisibleWishes().length / Number(pageSizeSelect.value)));
+    goToPage(Math.min(totalPages, currentPage + 1));
+  });
+  pageNumbers.addEventListener("click", (event) => {
+    const pageButton = event.target.closest("[data-page]");
+    if(pageButton) goToPage(Number(pageButton.dataset.page));
+  });
+  retryButton.addEventListener("click", subscribeToWishes);
+  window.addEventListener("beforeunload", () => {
+    if(unsubscribe) unsubscribe();
+  });
+
+  subscribeToWishes();
+</script>
+</body>
+</html>
