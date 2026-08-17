@@ -230,8 +230,6 @@
       html{ scroll-behavior:auto; }
       *,*::before,*::after{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
       .photo-card{ opacity:1; transform:none; }
-  <script src="assets/js/umami-config.js"></script>
-  <script src="assets/js/site-analytics.js"></script>
     }
   </style>
 </head>
@@ -373,6 +371,8 @@
     <a class="back-link" href="index.html"><span aria-hidden="true">&larr;</span> Back to the invitation</a>
   </footer>
 
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
   <script src="assets/vendor/glightbox/glightbox.min.js"></script>
   <script>
     const header = document.getElementById('site-header');
@@ -413,6 +413,141 @@
         }
       });
     }
-  </script>
+</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+<script>
+(function () {
+
+  const FIREBASE_CONFIG = {
+    apiKey: 'AIzaSyCFS9zkIeDen7G6tLCBXI04HpuyAMfdlHM',
+    authDomain: 'risheek-c7ffe.firebaseapp.com',
+    projectId: 'risheek-c7ffe',
+    storageBucket: 'risheek-c7ffe.firebasestorage.app',
+    messagingSenderId: '936186580317',
+    appId: '1:936186580317:web:fbfdf356005c909e20ecb4'
+  };
+
+  const COLLECTION = 'hourlyVisitors';
+
+  // Automatically gets the current page.
+  const PAGE =
+    window.location.pathname.split('/').pop() || 'index.html';
+
+
+  function getIndiaTime() {
+
+    const now = new Date();
+
+    const dateFormatter = new Intl.DateTimeFormat(
+      'en-CA',
+      {
+        timeZone: 'Asia/Kolkata',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }
+    );
+
+    const date = dateFormatter.format(now);
+
+    const hourFormatter = new Intl.DateTimeFormat(
+      'en-US',
+      {
+        timeZone: 'Asia/Kolkata',
+        hour: '2-digit',
+        hour12: false
+      }
+    );
+
+    let hour = hourFormatter.format(now);
+
+    if (hour === '24') {
+      hour = '00';
+    }
+
+    return {
+      date: date,
+      hour: hour,
+      hourKey: date + 'T' + hour
+    };
+  }
+
+
+  function initializeFirestore() {
+
+    if (typeof firebase === 'undefined') {
+      console.error('Firebase SDK not loaded.');
+      return null;
+    }
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(FIREBASE_CONFIG);
+    }
+
+    return firebase.firestore();
+  }
+
+
+  function trackVisitor() {
+
+    const db = initializeFirestore();
+
+    if (!db) return;
+
+    const time = getIndiaTime();
+
+    const docRef = db
+      .collection(COLLECTION)
+      .doc(time.hourKey);
+
+
+    docRef.set({
+
+      hourKey: time.hourKey,
+
+      date: time.date,
+
+      count:
+        firebase.firestore.FieldValue.increment(1),
+
+      pages: {
+        [PAGE]:
+          firebase.firestore.FieldValue.increment(1)
+      },
+
+      updatedAt:
+        firebase.firestore.FieldValue.serverTimestamp()
+
+    }, {
+      merge: true
+
+    })
+    .then(function () {
+
+      console.log(
+        'Visitor counted:',
+        PAGE
+      );
+
+    })
+    .catch(function (error) {
+
+      console.error(
+        'Visitor tracking error:',
+        error
+      );
+
+    });
+
+  }
+
+
+  // Wait for Firebase to load.
+  setTimeout(trackVisitor, 1000);
+
+})();
+</script>
 </body>
 </html>
