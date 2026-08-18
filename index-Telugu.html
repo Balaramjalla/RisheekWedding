@@ -950,6 +950,9 @@
     transition: box-shadow .4s, transform .3s;
   }
   .submit-btn:hover{ box-shadow:0 0 36px rgba(212,175,55,0.45); transform:translateY(-2px); }
+  .rsvp-error{
+    margin:0.9rem 0 0; color:#f2c0a7; font-size:0.82rem; line-height:1.5; text-align:center;
+  }
   .rsvp-success{
     display:none; text-align:center; padding:2.4rem 1rem;
   }
@@ -1585,6 +1588,7 @@
         <textarea id="rsvp-msg" rows="3" placeholder="వధూవరుల కోసం మీ శుభాకాంక్షలు లేదా సందేశం రాయండి..." required></textarea>
       </div>
       <button type="submit" class="submit-btn">మీ శుభాకాంక్షలను పంపండి</button>
+      <p class="rsvp-error" id="rsvp-error" role="alert" hidden></p>
     </form>
     <div class="rsvp-success" id="rsvp-success">
       <svg viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="#d4af37" stroke-width="1.5"/><path d="M15 27l7 7 15-15" stroke="#f4c95d" stroke-width="2" fill="none"/></svg>
@@ -2030,23 +2034,30 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e)=>{
   e.preventDefault();
   const form = e.target;
   const submitButton = form.querySelector('.submit-btn');
+  const errorMessage = document.getElementById('rsvp-error');
   const name = document.getElementById('rsvp-name').value.trim();
   const msg = document.getElementById('rsvp-msg').value.trim();
+  errorMessage.hidden = true;
+  errorMessage.textContent = '';
   if(submitButton){
     submitButton.disabled = true;
     submitButton.textContent = 'పంపుతోంది...';
   }
 
   try{
-    let savedToFirebase = false;
-    if(msg && window.__saveWish){
-      savedToFirebase = await window.__saveWish(msg, name || 'ఒక అతిథి');
-    }
-    if(msg && window.__addWish && !savedToFirebase){
-      window.__addWish(msg, name || 'ఒక అతిథి');
+    const savedToFirebase = window.__saveWish &&
+      await window.__saveWish(msg, name || 'ఒక అతిథి');
+    if(!savedToFirebase){
+      errorMessage.textContent = 'మీ శుభాకాంక్షను పంపలేకపోయాము. మీ ఇంటర్నెట్ కనెక్షన్‌ను పరిశీలించి మళ్లీ ప్రయత్నించండి.';
+      errorMessage.hidden = false;
+      return;
     }
     form.style.display='none';
     document.getElementById('rsvp-success').classList.add('show');
+  }catch(error){
+    console.error('Unable to submit wish:', error);
+    errorMessage.textContent = 'మీ శుభాకాంక్షను పంపలేకపోయాము. మీ ఇంటర్నెట్ కనెక్షన్‌ను పరిశీలించి మళ్లీ ప్రయత్నించండి.';
+    errorMessage.hidden = false;
   }finally{
     if(submitButton){
       submitButton.disabled = false;
@@ -2269,7 +2280,7 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e)=>{
       return true;
     }catch(error){
       console.error('Failed to save wish to Firebase:', error);
-      setWishesStatus('మీ శుభాకాంక్ష స్థానికంగా సేవ్ చేయబడింది. ఆన్‌లైన్‌లో ప్రచురించడానికి Firebase configని జోడించండి.');
+      setWishesStatus('మీ శుభాకాంక్షను పంపలేకపోయాము. దయచేసి కొద్దిసేపటి తర్వాత మళ్లీ ప్రయత్నించండి.');
       return false;
     }
   }
@@ -2278,12 +2289,12 @@ document.getElementById('rsvp-form').addEventListener('submit', async (e)=>{
 
   if(wishesDb){
     wishesDb.collection(FIREBASE_WISHES_COLLECTION)
-      .limit(12)
       .onSnapshot((snapshot) => {
         clearRemoteWishes();
         const docs = snapshot.docs
           .map((doc) => ({ id: doc.id, ...doc.data() }))
-          .sort((left, right) => getWishTimestamp(right) - getWishTimestamp(left));
+          .sort((left, right) => getWishTimestamp(right) - getWishTimestamp(left))
+          .slice(0, 12);
         if(docs.length){
           removeDefaultWishes();
           docs.forEach((entry) => {
