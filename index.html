@@ -204,7 +204,10 @@
 
   #open-btn{
     position:relative; z-index:2;
-    opacity:0; animation: fade-up 1s var(--ease-lux) forwards 2.7s;
+    opacity:0;
+    animation:
+      fade-up 1s var(--ease-lux) forwards 2.7s,
+      invitation-pulse 1.25s ease-in-out infinite 3.7s;
     margin-top:1.8rem;
     background:transparent;
     border: 1px solid var(--gold);
@@ -222,6 +225,10 @@
     color:var(--obsidian);
     letter-spacing:0.36em;
     box-shadow: 0 0 40px rgba(212,175,55,0.45);
+  }
+  @keyframes invitation-pulse{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.08); box-shadow:0 0 34px rgba(212,175,55,0.38); }
   }
 
   /* ============================================================
@@ -1832,6 +1839,7 @@ bgMusic.muted = false;
 let invitationOpened = false;
 let pageIsActive = document.visibilityState === 'visible';
 let galleryVideoPlaying = false;
+let autoOpenTimer;
 
 function tryPlayMusic() {
     bgMusic.play().catch(err => {
@@ -1870,8 +1878,10 @@ function spawnPetals(count){
   }
 }
 
-openBtn.addEventListener('click', ()=>{
+function openInvitation(){
+  if(invitationOpened) return;
   invitationOpened = true;
+  clearTimeout(autoOpenTimer);
   loader.classList.add('hide');
   window.__stopParticles && window.__stopParticles();
   doors.classList.add('open');
@@ -1895,7 +1905,10 @@ openBtn.addEventListener('click', ()=>{
     }
   }, 20000);
   setTimeout(()=>{ doors.classList.add('gone'); }, 1900);
-});
+}
+
+openBtn.addEventListener('click', openInvitation);
+autoOpenTimer = setTimeout(() => openBtn.click(), 20000);
 document.body.style.overflow = 'hidden';
 
 document.addEventListener('visibilitychange', ()=>{
