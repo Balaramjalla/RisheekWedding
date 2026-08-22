@@ -190,6 +190,12 @@
     opacity:0; visibility:hidden; pointer-events:none;
   }
   #pointer-crackers.active{ opacity:1; visibility:visible; }
+  #akshintalu-canvas{
+    position:fixed; inset:0; z-index:118;
+    width:100%; height:100%;
+    opacity:0; visibility:hidden; pointer-events:none;
+  }
+  #akshintalu-canvas.active{ opacity:1; visibility:visible; }
 
   .crest{ position:relative; z-index:2; width:120px; height:120px; margin-bottom:1.6rem; }
   .crest::before, .crest::after{
@@ -274,9 +280,9 @@
   #doors.gone{ display:none; }
 
   .petal{
-    position:absolute; top:-5%; width:14px; height:18px;
-    background: linear-gradient(160deg, var(--kumkum), var(--gold-light));
-    border-radius: 60% 0 60% 0;
+    position:fixed; top:-5%; width:12px; height:17px;
+    background:linear-gradient(145deg, #ffb3bd, #d94b4b 52%, #7a1027);
+    border-radius:70% 0 70% 0;
     opacity:0.85; z-index:95; pointer-events:none;
     animation: fall linear forwards;
   }
@@ -1260,6 +1266,7 @@
 
 <canvas id="wedding-fireworks" aria-hidden="true"></canvas>
 <canvas id="pointer-crackers" aria-hidden="true"></canvas>
+<canvas id="akshintalu-canvas" aria-hidden="true"></canvas>
 
 <!-- ============================================================
      DOORS (opening transition)
@@ -1855,6 +1862,7 @@ const doors = document.getElementById('doors');
 const openBtn = document.getElementById('open-btn');
 const weddingFireworksCanvas = document.getElementById('wedding-fireworks');
 const pointerCrackersCanvas = document.getElementById('pointer-crackers');
+const akshintaluCanvas = document.getElementById('akshintalu-canvas');
 const WEDDING_DAY = { year: 2026, month: 8, day: 23 };
 const WEDDING_TIME_ZONE = 'Asia/Kolkata';
 const WEDDING_DAY_PREVIEW = new URLSearchParams(window.location.search).get('preview') === 'wedding-day';
@@ -1868,6 +1876,7 @@ let pageIsActive = document.visibilityState === 'visible';
 let galleryVideoPlaying = false;
 let weddingCelebrationPlaying = false;
 let autoOpenTimer;
+let triggerAkshintaluBurst = null;
 
 function isWeddingDay(date = new Date()) {
   if(WEDDING_DAY_PREVIEW) return true;
@@ -2121,7 +2130,192 @@ function startPointerCrackers(){
   window.addEventListener('pointermove', handlePointerMove, { passive:true });
   window.addEventListener('pointerdown', event => {
     addSilentBurst(event.clientX, event.clientY, reducedMotion ? 8 : 18);
+    if(triggerAkshintaluBurst) triggerAkshintaluBurst();
   }, { passive:true });
+}
+
+function startAkshintaluShower(){
+  if(!akshintaluCanvas || akshintaluCanvas.dataset.active === 'true') return;
+  const context = akshintaluCanvas.getContext('2d');
+  if(!context) return;
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const colors = ['#ffd700', '#ffcc00', '#f4b942', '#e8a93c'];
+  const flowerColors = ['#d94b4b', '#f06a72', '#ff8f3d', '#f4c95d', '#fff0c2'];
+  const grains = [];
+  const flowers = [];
+  let width = 0;
+  let height = 0;
+
+  function resizeAkshintaluCanvas(){
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    akshintaluCanvas.width = Math.max(1, Math.floor(width * pixelRatio));
+    akshintaluCanvas.height = Math.max(1, Math.floor(height * pixelRatio));
+    akshintaluCanvas.style.width = width + 'px';
+    akshintaluCanvas.style.height = height + 'px';
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+  }
+
+  class AkshintaluGrain {
+    constructor(isBurst = false){
+      this.isBurst = isBurst;
+      this.reset(true);
+    }
+
+    reset(initial = false){
+      if(this.isBurst){
+        this.x = width * 0.3 + Math.random() * width * 0.4;
+        this.y = -10 - Math.random() * 100;
+        this.speedY = 3 + Math.random() * 4;
+        this.speedX = Math.random() * 4 - 2;
+      }else{
+        this.x = Math.random() * width;
+        this.y = initial
+          ? Math.random() * -height
+          : -12 - Math.random() * Math.max(80, height * 0.2);
+        this.speedY = 1.6 + Math.random() * 2.2;
+        this.speedX = Math.random() * 0.9 - 0.45;
+      }
+      this.length = 7 + Math.random() * 5;
+      this.thickness = 2.2 + Math.random() * 1.8;
+      this.rotation = Math.random() * Math.PI * 2;
+      this.rotationSpeed = Math.random() * 0.06 - 0.03;
+      this.wobble = Math.random() * Math.PI * 2;
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+      this.opacity = 0.72 + Math.random() * 0.28;
+    }
+
+    update(){
+      this.y += this.speedY;
+      this.wobble += 0.035;
+      this.x += this.speedX + Math.sin(this.wobble) * 0.18;
+      this.rotation += this.rotationSpeed;
+
+      if(this.y > height + this.length || this.x < -20 || this.x > width + 20){
+        if(this.isBurst) return false;
+        this.reset();
+      }
+      return true;
+    }
+
+    draw(){
+      context.save();
+      context.translate(this.x, this.y);
+      context.rotate(this.rotation);
+      context.globalAlpha = this.opacity;
+      context.fillStyle = this.color;
+      context.shadowBlur = 3;
+      context.shadowColor = 'rgba(89, 45, 0, 0.35)';
+      context.beginPath();
+      context.ellipse(0, 0, this.length / 2, this.thickness / 2, 0, 0, Math.PI * 2);
+      context.fill();
+      context.restore();
+    }
+  }
+
+  class AkshintaluFlower {
+    constructor(){
+      this.reset(true);
+    }
+
+    reset(initial = false){
+      this.x = Math.random() * width;
+      this.y = initial
+        ? Math.random() * -height
+        : -20 - Math.random() * Math.max(100, height * 0.25);
+      this.speedY = 0.9 + Math.random() * 1.25;
+      this.speedX = Math.random() * 0.5 - 0.25;
+      this.size = 2.8 + Math.random() * 2.2;
+      this.rotation = Math.random() * Math.PI * 2;
+      this.rotationSpeed = Math.random() * 0.035 - 0.0175;
+      this.sway = Math.random() * Math.PI * 2;
+      this.swaySpeed = 0.018 + Math.random() * 0.022;
+      this.color = flowerColors[Math.floor(Math.random() * flowerColors.length)];
+      this.opacity = 0.75 + Math.random() * 0.25;
+    }
+
+    update(){
+      this.y += this.speedY;
+      this.sway += this.swaySpeed;
+      this.x += this.speedX + Math.sin(this.sway) * 0.32;
+      this.rotation += this.rotationSpeed;
+
+      if(this.y > height + this.size * 2 || this.x < -24 || this.x > width + 24){
+        this.reset();
+      }
+    }
+
+    draw(){
+      context.save();
+      context.translate(this.x, this.y);
+      context.rotate(this.rotation);
+      context.globalAlpha = this.opacity;
+      context.shadowBlur = 4;
+      context.shadowColor = 'rgba(89, 20, 30, 0.3)';
+
+      for(let petal=0;petal<6;petal++){
+        context.save();
+        context.rotate((Math.PI * 2 * petal) / 6);
+        context.fillStyle = this.color;
+        context.beginPath();
+        context.ellipse(0, -this.size * 0.55, this.size * 0.34, this.size * 0.62, 0, 0, Math.PI * 2);
+        context.fill();
+        context.restore();
+      }
+
+      context.fillStyle = '#ffd700';
+      context.beginPath();
+      context.arc(0, 0, this.size * 0.3, 0, Math.PI * 2);
+      context.fill();
+      context.restore();
+    }
+  }
+
+  resizeAkshintaluCanvas();
+  const grainCount = reducedMotion ? 18 : (window.innerWidth < 560 ? 34 : 50);
+  const flowerCount = reducedMotion ? 6 : (window.innerWidth < 560 ? 12 : 18);
+  for(let index=0;index<grainCount;index++){
+    grains.push(new AkshintaluGrain());
+  }
+  for(let index=0;index<flowerCount;index++){
+    flowers.push(new AkshintaluFlower());
+  }
+
+  triggerAkshintaluBurst = () => {
+    for(let index=0;index<40;index++){
+      grains.push(new AkshintaluGrain(true));
+    }
+  };
+
+  function animateAkshintalu(){
+    context.clearRect(0, 0, width, height);
+    for(let index=grains.length-1;index>=0;index--){
+      const grain = grains[index];
+      if(!grain.update()){
+        grains.splice(index, 1);
+        continue;
+      }
+      grain.draw();
+    }
+    flowers.forEach((flower) => {
+      flower.update();
+      flower.draw();
+    });
+    requestAnimationFrame(animateAkshintalu);
+  }
+
+  function handleRosePetalClick(event){
+    if(event.pointerType === 'mouse' && event.button !== 0) return;
+    spawnPetals(window.innerWidth < 480 ? 4 : 7, event.clientX);
+  }
+
+  akshintaluCanvas.dataset.active = 'true';
+  akshintaluCanvas.classList.add('active');
+  window.addEventListener('resize', resizeAkshintaluCanvas);
+  window.addEventListener('pointerdown', handleRosePetalClick, { passive:true });
+  requestAnimationFrame(animateAkshintalu);
 }
 
 function tryPlayMusic() {
@@ -2148,11 +2342,15 @@ function setGalleryVideoPlaying(isPlaying) {
   updateMusicState({ attemptPlay: !isPlaying });
 }
 
-function spawnPetals(count){
+function spawnPetals(count, originX = null){
+  const originPercent = originX === null ? null : originX / window.innerWidth * 100;
   for(let i=0;i<count;i++){
     const p = document.createElement('div');
     p.className='petal';
-    p.style.left = Math.random()*100+'vw';
+    const left = originPercent === null
+      ? Math.random() * 100
+      : originPercent + Math.random() * 28 - 14;
+    p.style.left = Math.max(0, Math.min(100, left)) + 'vw';
     p.style.setProperty('--drift', (Math.random()*160-80)+'px');
     p.style.animationDuration = (3+Math.random()*2.5)+'s';
     p.style.animationDelay = (Math.random()*1.2)+'s';
@@ -2167,6 +2365,7 @@ function openInvitation(){
   clearTimeout(autoOpenTimer);
   const celebrateWeddingDay = isWeddingDay();
   if(celebrateWeddingDay){
+    startAkshintaluShower();
     weddingCelebrationPlaying = true;
     startWeddingDayCelebration().finally(() => {
       weddingCelebrationPlaying = false;
